@@ -1,5 +1,9 @@
 {- Ninety Nine Haskell Problems (derived from 99 Lisp & Prolog Problems) -}
 
+import Data.List
+
+
+
 -- Find the last elemend of a list
 pr1 xs = last xs
 
@@ -33,5 +37,13 @@ pr7 xs = head xs ++ pr7 (tail xs)
 pr8 [] = []
 pr8 (x:[]) = [x]
 pr8 (x:y:xs) = if x == y then y : pr8 xs else [x] ++ pr8 ([y] ++ xs)
+
+-- Pack consecutive duplicates into sublists.
+pr9 xs = groupBy (==) xs
+
+
+-- Run-length encoding of a list. Use the result of problem P09 to implement the so-called run-length encoding data compression method. Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+pr10  xs = zip (map length (pr9 xs)) (map head (pr9 xs))
+
 
 
