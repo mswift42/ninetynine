@@ -46,4 +46,23 @@ pr9 xs = groupBy (==) xs
 pr10  xs = zip (map length (pr9 xs)) (map head (pr9 xs))
 
 
+{- Modify the result of problem 10
+that if an element has no duplicates it is
+copied into the result list. -}
+pr11 xs = zip (map multi (pr9 xs)) (map head (pr9 xs))
+  where multi xs = if length xs > 1 then "multiple" else "single"
+
+
+pr12 [] = []
+pr12 (x:xs) = replicate (fst x) (snd x) ++ pr12 xs
+
+
+pr13 [] = []
+pr13 xs = let groupedlist = group xs
+          in if length (head groupedlist) > 1
+             then (length (head groupedlist),head groupedlist):
+                  pr13 (tail xs)
+             else (1,head groupedlist) : pr13 (tail xs)
+
+
 
