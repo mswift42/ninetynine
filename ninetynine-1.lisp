@@ -138,6 +138,9 @@
 (defun drop-n (list n)
   (cond
     ((null list) nil)
-    (t (cons (take (1- n) (list))
+    (t (append (take (1- n) list)
 	     (drop-n  (drop n list) n)))))
+
+;; pr17 Split list in two parts . Length of first part is given.
+
 
