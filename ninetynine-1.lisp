@@ -143,4 +143,23 @@
 
 ;; pr17 Split list in two parts . Length of first part is given.
 
+(defun split (list n)
+  (cons (take n list) (list ( drop n list))))
+
+;; pr18 Extract a slice from a list.
+(defun splice (list start end)
+  (take (- end (- start 1)) (drop (1- start) list)))
+
+
+;; pr19 Rotate a list by n places to the left.
+
+(defun rotate (list n)
+  (if (> n 0)
+      (append (drop n list) (take n list))
+      (append (second (split list (abs n))) (first (split list (abs n))))))
+
+;; pr20 Remove the K'th element from a list.
+(defun remove-at (list n)
+  (append (take (1- n) list) (drop n list)))
+
 
