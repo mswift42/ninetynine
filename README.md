@@ -1,4 +1,4 @@
 ninetynine
 ==========
 
-haskell ninety-nine problems
+Lisp /  haskell ninety-nine problems

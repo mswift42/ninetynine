@@ -77,7 +77,8 @@ pr15 n (x:xs) = replicate n x ++ pr15 n xs
 
 
 -- drop every nth element of a list.
-pr16 _ [] = []
+r16 _ [] = []
+
 pr16 0 xs = xs
 pr16 1 xs = []
 pr16 n xs = take (n-1) xs ++ pr16 n (drop n xs)
