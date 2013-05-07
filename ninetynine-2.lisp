@@ -12,4 +12,12 @@
        for i from start to end
        collecting i))
 
+;; pr23 extract a number of randomly selected items from a list.
 
+(defun rnd-select (list n)
+  (loop
+       for a = 0 then (+ a 1) and l = list then (remove-at l (random (length l)))
+       when (= a n) return l))
+
+
+;; pr24 lotto draw n different numbers from the set 1..M.
