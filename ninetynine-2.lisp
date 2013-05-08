@@ -21,3 +21,14 @@
 
 
 ;; pr24 lotto draw n different numbers from the set 1..M.
+
+(defun lotto (n upto)
+  (loop
+     for a = nil then (cons (1+ (random upto)) a)
+     when (= (length (remove-duplicates a)) n) return (values (remove-duplicates a))))
+
+
+
+
+
+       
