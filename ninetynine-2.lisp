@@ -46,4 +46,27 @@
               (combinations count (rest list))))))
 
 
+;; pr27 lenght of combinations
+
+(defun l-of-comb (count list)
+  (length (combinations count list)))
+
+;;pr28 Sort a list according to length of sublists
+(defun smallerp (l1 l2)
+  (< (length l1) (length l2)))
+
+(defun sort-by-length (lst)
+  (sort lst #'smallerp))
+
+;; pr31 determine weather a given integer is prime.
+(defun is-evenly-disible-p (a b)
+  (zerop (mod a b)))
+
+(defun is-prime-p (n)
+  (case n
+    (1 nil)
+    (2 t)
+    (otherwise (notany #'(lambda (x) (is-evenly-disible-p n x))
+		       (loop for i from 2 below n collect i)))))
+
 
