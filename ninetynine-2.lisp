@@ -28,7 +28,22 @@
      when (= (length (remove-duplicates a)) n) return (values (remove-duplicates a))))
 
 
+;; pr25 Generate a random permutation of the elements in a list.
+
+;; (defun permute (list)
+;;   (let* ((l (length list)) (r (random l)) (n (random l)))
+;;     (insert-at (nth list r) (remove (nth list r) list) n)))
+
+
+;; pr26 generate the combinations of k distinct objects chosen from the n elements of a
+;; list. combination 3 '(a b c d ef) -> ((a b c) (a b d) (a b ef) ...)
+(defun combinations (count list)
+  (cond
+    ((zerop count) '(())) ; one combination of zero element.
+    ((endp list)   '())   ; no combination from noe element.
+    (t (nconc (mapcar (let ((item (first list))) (lambda (combi) (cons item combi)))
+                      (combinations (1- count) (rest list)))
+              (combinations count (rest list))))))
 
 
 
-       
