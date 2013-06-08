@@ -114,7 +114,8 @@
 ;; pr37 improved totien function phi(m)
 
 (defun impr-totient (m)
-  (labels ((rec (n count)
+  
+(labels ((rec (n count)
     (cond ((= n 1) (1+ count))
 	  ((coprimep m n)
 	   (rec (1- n) (1+ count)))
@@ -128,6 +129,22 @@
 ;; pr39 list of all prime numbers in a given range
 (defun primes (start stop)
   (remove-if-not #'is-prime-p (loop for i from start to stop collect i)))
+
+;; pr40 Goldbach's conjecture for any i find 2 primes with sum i (goldbach 28) -> (5 23)
+
+(defun goldbach (n)
+  (loop
+       for i in (primes 2 n) collect  
+       (loop for j in (primes 2 n)
+	  when (= n (+ i j)) return  (list i j))))
+
+(defun first-goldbach (n)
+  (first (remove-if #'(lambda (x) (eq nil x)) (goldbach n))))
+
+(lisp-unit:define-test test-goldbach
+  (lisp-unit:assert-equal '(5 23) (first-goldbach 28)))
+
+
 
 
 
