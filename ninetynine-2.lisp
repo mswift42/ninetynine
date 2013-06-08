@@ -1,4 +1,6 @@
 (load "~/ninetynine/ninetynine-1.lisp")
+(load "~/quicklisp/setup.lisp")
+(ql:quickload "lisp-unit")
 ;; pr21 Insert an element at a given position into a list.
 
 (defun insert-at (element list n)
@@ -67,6 +69,49 @@
     (1 nil)
     (2 t)
     (otherwise (notany #'(lambda (x) (is-evenly-disible-p n x))
-		       (loop for i from 2 below n collect i)))))
+		       (loop for i from 2 to (sqrt n) collect i)))))
+
+
+;; pr32 define greatest common divisors of two numbers.
+(defun my-gcd (a b)
+  (if (zerop b) a
+      (my-gcd b (mod a b))))
+
+(lisp-unit:define-test test-gcd
+  (lisp-unit:assert-equal 2 (my-gcd 8 2))
+  (lisp-unit:assert-equal (gcd 144 112) (my-gcd 144 112)))
+
+;; pr33 define weather 2 pos. integers are coprimes (their gcd == 1)
+(defun coprimep (a b)
+  (= 1 (gcd a b)))
+
+(lisp-unit:define-test test-coprimep
+  (lisp-unit:assert-true (coprimep 35 64))
+  (lisp-unit:assert-false (coprimep 144 112)))
+
+;; pr34 calculate euler's totient function phi(m) (numbers of integers 1<=n<m that are coprime)
+
+(defun totient (n)
+  (loop for i from 1 below n
+        count (coprimep n i)))
+
+(lisp-unit:define-test test-totient
+  (lisp-unit:assert-equal 4 (totient 10)))
+
+;; pr35  Determine the prime factors of a given number
+
+(defun prime-factors (n)
+  (let ((primes (remove-if-not #'is-prime-p
+			       (loop for i from 1 below n collect i))))
+    (remove-if-not #'(lambda (x) (is-evenly-disible-p n x)) primes)))
+
+(lisp-unit:define-test test-prime-factors
+  (lisp-unit:assert-equal '(3 3 5 7) (prime-factors 315)))
+
+
+(lisp-unit:run-tests)
+
+
+
 
 
