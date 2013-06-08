@@ -101,12 +101,34 @@
 ;; pr35  Determine the prime factors of a given number
 
 (defun prime-factors (n)
-  (let ((primes (remove-if-not #'is-prime-p
-			       (loop for i from 1 below n collect i))))
+  (let ((primes (remove-if-not #'is-prime-p (loop for i from 2 to n collect i))))
     (remove-if-not #'(lambda (x) (is-evenly-disible-p n x)) primes)))
 
+
+
+
 (lisp-unit:define-test test-prime-factors
-  (lisp-unit:assert-equal '(3 3 5 7) (prime-factors 315)))
+  (lisp-unit:assert-equal '(3 5 7) (prime-factors 315)))
+
+
+;; pr37 improved totien function phi(m)
+
+(defun impr-totient (m)
+  (labels ((rec (n count)
+    (cond ((= n 1) (1+ count))
+	  ((coprimep m n)
+	   (rec (1- n) (1+ count)))
+	  (t
+	   (rec (1- n) count)))))
+    (rec m 0)))
+
+(lisp-unit:define-test test-impr-totient
+  (lisp-unit:assert-equal 4 (impr-totient 10)))
+
+;; pr39 list of all prime numbers in a given range
+(defun primes (start stop)
+  (remove-if-not #'is-prime-p (loop for i from start to stop collect i)))
+
 
 
 (lisp-unit:run-tests)
